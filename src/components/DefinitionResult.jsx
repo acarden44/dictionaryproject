@@ -1,11 +1,14 @@
 import React from "react";
+import Phonetic from "./Phonetic";
+import Synonyms from "./Synonyms";
 
 export default function DefinitionResult({ data }) {
   if (!data || !data.meanings) return null;
 
   return (
     <div className="definition card p-4 mb-5 shadow-sm text-start">
-      <h2 className="text-capitalize mb-4">{data.word}</h2>
+      <h2 className="text-capitalize mb-1">{data.word}</h2>
+      <Phonetic phonetic={data.phonetic} />
 
       {data.meanings.map((meaning, index) => (
         <div key={index} className="mb-3">
@@ -15,11 +18,7 @@ export default function DefinitionResult({ data }) {
             {meaning.example && (
               <li className="fst-italic text-secondary">"{meaning.example}"</li>
             )}
-            {meaning.synonyms && meaning.synonyms.length > 0 && (
-              <li className="mt-2">
-                <strong>Synonyms:</strong> {meaning.synonyms.join(", ")}
-              </li>
-            )}
+            <Synonyms synonyms={meaning.synonyms} />
           </ul>
         </div>
       ))}
