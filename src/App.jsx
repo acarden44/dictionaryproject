@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useState } from "react";
 import axios from "axios";
 import "./App.css";
@@ -19,11 +20,11 @@ export default function App() {
 
     try {
       const response = await axios.get(
-        `https://api.dictionaryapi.dev/api/v2/entries/en/${keyword}`
+        `https://api.shecodes.io/dictionary/v1/define?word=${keyword}&key=3b34c40446ftcf4f07e329o00aa2e010`
       );
-      setDefinition(response.data[0]);
+      setDefinition(response.data);
     } catch (error) {
-      console.error("Definition not found.");
+      console.error("Definition not found.", error);
       setDefinition(null);
     } finally {
       setLoading(false);
@@ -39,13 +40,13 @@ export default function App() {
       <form
         onSubmit={handleSearch}
         className="d-flex justify-content-center mb-5"
+        style={{ maxWidth: "500px", margin: "0 auto" }}
       >
         <input
           type="search"
           className="form-control me-2"
           placeholder="Search for a word"
           onChange={(e) => setKeyword(e.target.value)}
-          style={{ maxWidth: "300px" }}
         />
         <button type="submit" className="btn btn-primary">
           Search

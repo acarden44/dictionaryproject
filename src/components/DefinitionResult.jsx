@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function DefinitionResult({ data }) {
-  if (!data) return null;
+  if (!data || !data.meanings) return null;
 
   return (
     <div className="definition card p-4 mb-5 shadow-sm text-start">
@@ -11,11 +11,15 @@ export default function DefinitionResult({ data }) {
         <div key={index} className="mb-3">
           <h5 className="text-muted">{meaning.partOfSpeech}</h5>
           <ul className="list-unstyled ps-3">
-            {meaning.definitions.map((def, i) => (
-              <li key={i} className="mb-2">
-                • {def.definition}
+            <li className="mb-2">• {meaning.definition}</li>
+            {meaning.example && (
+              <li className="fst-italic text-secondary">"{meaning.example}"</li>
+            )}
+            {meaning.synonyms && meaning.synonyms.length > 0 && (
+              <li className="mt-2">
+                <strong>Synonyms:</strong> {meaning.synonyms.join(", ")}
               </li>
-            ))}
+            )}
           </ul>
         </div>
       ))}
